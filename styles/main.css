@@ -53,6 +53,11 @@ body{
 	text-transform: uppercase;
 	text-decoration: none;
 	cursor: pointer;
+
+}
+
+a:active{
+	background-color: white;
 }
 
 .links-container .navbar-link:hover{
