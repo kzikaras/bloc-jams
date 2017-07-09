@@ -7,9 +7,8 @@ alert("Why hello there! I am a wee bit of JavaScript.");
 					index.style.msTransform = "scaleX(1) translateY(0)";
 					index.style.WebkitTransform = "scaleX(1) translateY(0)";
 					}
-				for(i=0;i<points.length;i++){
-					revealPoint(points[i]);
-				}
+				forEach(points, revealPoint);
+				
 			};
 			animatePoints();
 			
