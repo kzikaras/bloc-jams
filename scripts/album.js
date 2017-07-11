@@ -31,6 +31,27 @@ var albumMarconi = {
 	]
 };
 
+var vanHalen = {
+	title: 'Van Halen',
+	artist: 'Van Halen',
+	label: 'Warner Bros',
+	year: '1978',
+	albumArtUrl: 'assets/images/album_covers/vanhalen.jpg',
+	songs: [
+		{title: 'Runnin with the Devil', duration: '3:36'},
+		{title: 'Eruption', duration: '1:42'},
+		{title: 'You Really Got Me', duration: '2:38'},
+		{title: 'Aint talkin bout Love', duration: '3:50'},
+		{title: 'Im the One', duration: '3:47'},
+		{title: 'Jamies Cryin', duration: '3:31'},
+		{title: 'Atomic Punk', duration: '3:02'},
+		{title: 'Feel Your Love Tonight', duration: '3:43'},
+		{title: 'Little Dreamer', duration: '3:23'},
+		{title: 'Ice Cream Man', duration: '3:20'},
+		{title: 'On Fire', duration: '3:01'},
+	]
+};
+
 var createSongRow = function(songNumber, songName, songLength){
 	var template = 
 		'<tr class="album-view-song-item">'
@@ -65,8 +86,28 @@ var setCurrentAlbum = function(album) {
 	}
 };
 
-window.onload = function(){
-	setCurrentAlbum(albumPicasso);
+var changeAlbum = function(album) {
+	console.log('changeAlbum', album);
+	if (album === 'van halen') {
+		setCurrentAlbum(albumPicasso);
+		album = 'album picasso';
+	}
+	else if (album === 'album picasso') {
+		setCurrentAlbum(albumMarconi);
+		album = 'album marconi';
+	}
+	else if (album === 'album marconi') {
+		setCurrentAlbum(vanHalen);
+		album = 'van halen';
+	}
+	return album;
 };
 
-
+window.onload = function(){
+	setCurrentAlbum(vanHalen);
+	var currentAlbum = 'van halen';
+	document.getElementsByClassName('album-cover-art')[0].addEventListener('click', function() {
+		currentAlbum = changeAlbum(currentAlbum);
+	});	
+}
+		
