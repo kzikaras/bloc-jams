@@ -16,6 +16,7 @@ body{
 }
 
 .navbar{
+	float: left;
 	position: relative;
 	padding: 0.5rem;
 	background-color: rgba(101,18,95,0.5);
