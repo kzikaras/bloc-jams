@@ -71,7 +71,7 @@ body.album {
 	height: 28px;
 }
 
-.album-song-button: hover {
+.album-song-button:hover {
 	cursor: pointer;
 	color: white;
 	background-color: rgb(210, 40, 123);
@@ -79,6 +79,7 @@ body.album {
 
 .album-song-button span {
 	line-height: 28px;
+	top: auto;
 }
 
 /* Centered text looks better on smaller devices */
