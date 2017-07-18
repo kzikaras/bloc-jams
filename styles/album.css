@@ -79,6 +79,7 @@ body.album {
 
 .album-song-button span {
 	line-height: 28px;
+	top: auto;
 }
 
 /* Centered text looks better on smaller devices */
