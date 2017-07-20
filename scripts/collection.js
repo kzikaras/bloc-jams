@@ -21,7 +21,7 @@ var buildCollectionItemTemplate = function(){
 }; 
 
 $(window).load(function() {
-	alert("Load working");
+	
 	// #3
 	var $collectionContainer = $('.album-covers');
 	// #4
