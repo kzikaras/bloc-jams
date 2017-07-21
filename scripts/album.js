@@ -63,7 +63,7 @@ var createSongRow = function(songNumber, songName, songLength){
 	var $row = $(template);
 
 	var clickHandler = function() {
-		var songItem = $(this).attr('data-song-number');
+		var songItem = $(this).attr('data-song-number ');
  
      	if (currentlyPlayingSong === null) {
         	songItem.html(pauseButtonTemplate);
@@ -97,7 +97,7 @@ var createSongRow = function(songNumber, songName, songLength){
 		var songNumCell = $(this).find('.song-item-number');
 		var songNum = songNumCell.attr('data-song-number');
 		if(songNum !== currentlyPlayingSong) {
-			songNumCell.html('song-item-number');
+			songNumCell.html(songNum);
 		}
 
 	};
