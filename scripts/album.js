@@ -63,20 +63,22 @@ var createSongRow = function(songNumber, songName, songLength){
 	var $row = $(template);
 
 	var clickHandler = function() {
-		var songItem = $(this).attr('data-song-number ');
- 
-     	if (currentlyPlayingSong === null) {
-        	songItem.html(pauseButtonTemplate);
-         	currentlyPlayingSong = songItem.attr('data-song-number');
-     	} else if (currentlyPlayingSong === songItem.attr('data-song-number')) {
-       		songItem.html(playButtonTemplate);
-        	currentlyPlayingSong = null;
-     	} else if (currentlyPlayingSong !== songItem.attr('data-song-number')) {
-        	var currentlyPlayingSongElement = $('[data-song-number="' + currentlyPlayingSong + '"]');
-         	currentlyPlayingSongElement.html(currentlyPlayingSongElement.attr('data-song-number'));
-         	songItem.html(pauseButtonTemplate);
-         	currentlyPlayingSong = songItem.attr('data-song-number');
-     	}
+		var songNumber = $(this).attr('data-song-number');
+
+		if (currentlyPlayingSong !== null) { //if there is a song playing...
+			// Revert to song number for currently playing song because user started playing new song.
+			var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSong + '"]');
+			currentlyPlayingCell.html(currentlyPlayingSong);
+		}
+		if (currentlyPlayingSong !== songNumber) {
+			// Switch from Play -> Pause button to indicate new song is playing.
+			$(this).html(pauseButtonTemplate);
+			currentlyPlayingSong = songNumber;
+		} else if (currentlyPlayingSong === songNumber) {
+			// Switch from Pause -> Play button to pause currently playing song.
+			$(this).html(playButtonTemplate);
+			currentlyPlayingSong = null;
+		}
 	};
 
 	// This function changes the song number to the play icon
@@ -92,7 +94,7 @@ var createSongRow = function(songNumber, songName, songLength){
 		}
 		
 	};
-
+	// This function changes the play icon back to the song number
 	var offHover = function(event){
 		var songNumCell = $(this).find('.song-item-number');
 		var songNum = songNumCell.attr('data-song-number');
