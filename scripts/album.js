@@ -247,6 +247,7 @@ var playerBarPauseButton = '<span class="ion-pause"></span>';
 var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
+var currentSoundFile = null;
 
 
 var updatePlayerBarSong = function(){
@@ -268,8 +269,15 @@ var $nextButton = $('.main-controls .next');
 
 // this function will re-assign currentlyPlayingSongNumber and currentSongFrom Album
 var setSong = function(songNumber){
-	currentlyPlayingSongNumber = songNumber;
+	currentlyPlayingSongNumber = parseInt(songNumber);
 	currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+
+	//#1
+	currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+		//#2
+		formats: ['mp3'],
+		preload: true
+	});
 };
 
 var getSongNumberCell = function(number) {
@@ -281,7 +289,7 @@ var getSongNumberCell = function(number) {
 
 
 $(document).ready(function(){
-	setCurrentAlbum(vanHalen);
+	setCurrentAlbum(albumPicasso);
 	$previousButton.click(previousSong);
 	$nextButton.click(nextSong);
 });
