@@ -22,14 +22,16 @@ var createSongRow = function(songNumber, songName, songLength){
 		if (currentlyPlayingSongNumber !== songNumber) {
 			// Switch from Play -> Pause button to indicate new song is playing.
 			$(this).html(pauseButtonTemplate);
-			currentlyPlayingSongNumber = songNumber;
-			currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+			// currentlyPlayingSongNumber = songNumber;
+			// currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+			setSong(songNumber);
 			
 		} else if (currentlyPlayingSongNumber === songNumber) {
 			// Switch from Pause -> Play button to pause currently playing song.
 			$(this).html(playButtonTemplate);
-			currentlyPlayingSongNumber = null;
-			currentSongFromAlbum = null;
+			// currentlyPlayingSongNumber = null;
+			// currentSongFromAlbum = null;
+			setSong(null);
 		}
 	};
 
@@ -109,8 +111,9 @@ var nextSong = function(){
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	currentlyPlayingSongNumber = parseInt(currentSongIndex + 1);
-	currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+	// currentlyPlayingSongNumber = parseInt(currentSongIndex + 1);
+	// currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+	setSong(currentSongIndex);
 
 	
 	// update the player bar information
@@ -137,8 +140,9 @@ var previousSong = function(){
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	currentlyPlayingSongNumber = currentSongIndex + 1;
-	currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+	// currentlyPlayingSongNumber = currentSongIndex + 1;
+	// currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+	setSong(currentSongIndex);
 
 	
 	// update the player bar display information
@@ -258,6 +262,18 @@ var updatePlayerBarSong = function(){
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+
+// assignment-19 work --------
+
+// this function will re-assign currentlyPlayingSongNumber and currentSongFrom Album
+var setSong = function(songNumber){
+	currentlyPlayingSongNumber = songNumber;
+	currentSongFromAlbum = currentAlbum.songs[songNumber-1];
+};
+
+
+//----------------------------
+
 
 $(document).ready(function(){
 	setCurrentAlbum(vanHalen);
