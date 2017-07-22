@@ -49,7 +49,7 @@ var createSongRow = function(songNumber, songName, songLength){
 	// This function changes the play icon back to the song number
 	var offHover = function(event){
 		var songNumCell = $(this).find('.song-item-number');
-		var songNum = parseInt(songNum.attr('data-song-number'));
+		var songNum = parseInt(songNumCell.attr('data-song-number'));
 		if(songNum !== currentlyPlayingSongNumber) {
 			songNumCell.html(songNum);
 		console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
@@ -109,7 +109,7 @@ var nextSong = function(){
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	currentlyPlayingSongNumber = currentSongIndex + 1;
+	currentlyPlayingSongNumber = parseInt(currentSongIndex + 1);
 	currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
 	
@@ -130,18 +130,18 @@ var previousSong = function(){
 	var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
 	currentSongIndex--;
 	// Sets the index back to zero if we reach the end of the album - will bring us to the first song again.
-	if(currentSongIndex >= currentAlbum.songs.length) {
+	if(currentSongIndex >= currentAlbum.songs.length-1) {
 		currentSongIndex = 0;
 	}
 	// Saves the song number as the previous song for reference.
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	currentlyPlayingSongNumber = currentSongIndex - 1;
+	currentlyPlayingSongNumber = currentSongIndex + 1;
 	currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
 
 	
-	// update the player bar information
+	// update the player bar display information
 	updatePlayerBarSong();
 
 	var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber +'"]'); ///// ?????
