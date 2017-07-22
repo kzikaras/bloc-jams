@@ -14,7 +14,8 @@ var createSongRow = function(songNumber, songName, songLength){
 
 		if (currentlyPlayingSongNumber !== null) { //if there is a song playing...
 			// Revert to song number for currently playing song because user started playing new song.
-			var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+			// var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber + '"]');
+			var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
 			currentlyPlayingCell.html(currentlyPlayingSongNumber);
 			currentSongFromAlbum = $(".song-item-title").html();
 
@@ -270,6 +271,10 @@ var setSong = function(songNumber){
 	currentlyPlayingSongNumber = songNumber;
 	currentSongFromAlbum = currentAlbum.songs[songNumber-1];
 };
+
+var getSongNumberCell = function(number) {
+	return $('.song-item-number[number]');
+}
 
 
 //----------------------------
