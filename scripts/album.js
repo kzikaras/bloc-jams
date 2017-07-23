@@ -124,8 +124,9 @@ var nextSong = function(){
 
 	// Sets a new current song.
 
-	setSong(currentSongIndex + 1);
 	
+	setSong(currentSongIndex + 1);
+
 
 	
 	// update the player bar information
