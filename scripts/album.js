@@ -110,9 +110,8 @@ var nextSong = function(){
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	currentlyPlayingSongNumber = parseInt(currentSongIndex + 1);
-	currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-	// setSong(currentSongIndex);
+	
+	setSong(currentSongIndex + 1);
 
 	
 	// update the player bar information
@@ -141,9 +140,8 @@ var previousSong = function(){
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	// currentlyPlayingSongNumber = currentSongIndex + 1;
-	// currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-	setSong(currentSongIndex+1);
+	
+	setSong(currentSongIndex + 1);
 
 	
 	// update the player bar display information
