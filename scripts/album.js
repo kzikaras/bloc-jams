@@ -1,4 +1,3 @@
-
 var createSongRow = function(songNumber, songName, songLength){
 	var template = 
 		'<tr class="album-view-song-item">'
@@ -23,16 +22,24 @@ var createSongRow = function(songNumber, songName, songLength){
 		if (currentlyPlayingSongNumber !== songNumber) {
 			// Switch from Play -> Pause button to indicate new song is playing.
 			$(this).html(pauseButtonTemplate);
-			// currentlyPlayingSongNumber = songNumber;
-			// currentSongFromAlbum = currentAlbum.songs[songNumber-1];
 			setSong(songNumber);
+			currentSoundFile.play();
+			
+			
 			
 		} else if (currentlyPlayingSongNumber === songNumber) {
 			// Switch from Pause -> Play button to pause currently playing song.
 			$(this).html(playButtonTemplate);
-			// currentlyPlayingSongNumber = null;
-			// currentSongFromAlbum = null;
-			setSong(null);
+			if(currentSoundFile.isPaused()) {
+				currentSoundFile.play();
+				$(this).html(pauseButtonTemplate);
+			}
+			else{
+				currentSoundFile.pause();
+				$(this).html(playButtonTemplate);
+			}
+			
+			
 		}
 	};
 
@@ -112,16 +119,17 @@ var nextSong = function(){
 	var lastSongNumber = currentlyPlayingSongNumber;
 
 	// Sets a new current song.
-	// currentlyPlayingSongNumber = parseInt(currentSongIndex + 1);
-	// currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-	setSong(currentSongIndex);
+	setSong(currentSongIndex + 1);
+	currentSoundFile.play();
 
 	
 	// update the player bar information
 	updatePlayerBarSong();
 
-	var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber +'"]'); ///// ?????
-	var $lastSongNumberCell = $('.song-item-number[data-song-number="'+ lastSongNumber +'"]'); /// ????
+	// var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber +'"]'); ///// ?????
+	// var $lastSongNumberCell = $('.song-item-number[data-song-number="'+ lastSongNumber +'"]'); /// ????
+	var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+	var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
 
 	$nextSongNumberCell.html(pauseButtonTemplate);
 	$lastSongNumberCell.html(lastSongNumber);
@@ -143,79 +151,25 @@ var previousSong = function(){
 	// Sets a new current song.
 	// currentlyPlayingSongNumber = currentSongIndex + 1;
 	// currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-	setSong(currentSongIndex);
+	setSong(currentSongIndex+1);
+	currentSoundFile.play();
 
 	
 	// update the player bar display information
 	updatePlayerBarSong();
 
-	var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber +'"]'); ///// ?????
-	var $lastSongNumberCell = $('.song-item-number[data-song-number="'+ lastSongNumber +'"]'); /// ????
+	// var $nextSongNumberCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber +'"]'); ///// ?????
+	// var $lastSongNumberCell = $('.song-item-number[data-song-number="'+ lastSongNumber +'"]'); /// ????
 
+	var $nextSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+	var $lastSongNumberCell = getSongNumberCell(lastSongNumber);
+	
 	$nextSongNumberCell.html(pauseButtonTemplate);
 	$lastSongNumberCell.html(lastSongNumber);
 
 };
 
-// Old vanilla JS Code----------------------------------------------------------------
-// // Exercise question
-// var findParentByClassName = function(myNode, dest) {
-//     //var destination = document.querySelector("." + dest);
-//   //console.log(destination);
-//   if(!myNode.parentElement){
-//       return console.log('No parent found');
-//   };
-  
-//   while(myNode && myNode.className !== null && myNode.className !== dest){
-//       myNode = myNode.parentElement;
-//   };
-  
-//   if(myNode === null){
-//       return console.log('No parent found with that class name');
-//   };
-  
-//   return myNode;
-// };
-  	
- 
-  
 
-
-//getSongItem goes here....
-// var getSongItem = function(element) {
-//     switch (element.className) {
-//         case 'album-song-button':
-//         case 'ion-play':
-//         case 'ion-pause':
-//             return findParentByClassName(element, 'song-item-number');
-//         case 'album-view-song-item':
-//             return element.querySelector('.song-item-number');
-//         case 'song-item-title':
-//         case 'song-item-duration':
-//             return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
-//         case 'song-item-number':
-//             return element;
-//         default:
-//             return;
-//     }  
-// };
-
-// var clickHandler = function(targetElement) {
-// 	var songItem = getSongItem(targetElement);
-// 	if(currentlyPlayingSong === null) {
-// 		songItem.innerHTML = pauseButtonTemplate;
-// 		currentlyPlayingSong = songItem.getAttribute('data-song-number');
-// 	} else if(currentlyPlayingSong === songItem.getAttribute('data-song-number')) {
-// 		songItem.innerHTML = playButtonTemplate;
-// 		currentlyPlayingSong = null;
-// 	}else if(currentlyPlayingSong !== songItem.getAttribute('data-song-number')){
-// 		var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]');
-// 		currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
-// 		songItem.innerHTML = pauseButtonTemplate;
-// 		currentlyPlayingSong = songItem.getAttribute('data-song-number');
-// 	}
-// };
-// end old vanilla code ----------------------------------------------------------
 
 var changeAlbum = function(album) {
 	console.log('changeAlbum', album);
@@ -233,9 +187,7 @@ var changeAlbum = function(album) {
 	}
 	return album;
 };
-// old vanilla code ---------------------
-// var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
-// var songRows = document.getElementsByClassName('album-view-song-item');
+
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
@@ -248,6 +200,7 @@ var currentAlbum = null;
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null;
 var currentSoundFile = null;
+var currentVolume = 80;
 
 
 var updatePlayerBarSong = function(){
@@ -269,19 +222,30 @@ var $nextButton = $('.main-controls .next');
 
 // this function will re-assign currentlyPlayingSongNumber and currentSongFrom Album
 var setSong = function(songNumber){
+	if(currentSoundFile) {
+		currentSoundFile.stop();
+	}
 	currentlyPlayingSongNumber = parseInt(songNumber);
 	currentSongFromAlbum = currentAlbum.songs[songNumber-1];
 
-	//#1
+	// #1
 	currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
-		//#2
+		// #2
 		formats: ['mp3'],
 		preload: true
 	});
+
+	setVolume(currentVolume);
+};
+
+var setVolume = function(volume) {
+	if (currentSoundFile) {
+		currentSoundFile.setVolume(volume);
+	}
 };
 
 var getSongNumberCell = function(number) {
-	return $('.song-item-number[number]');
+	return $('.song-item-number[data-song-number="' + number + '"]');
 }
 
 
@@ -294,43 +258,7 @@ $(document).ready(function(){
 	$nextButton.click(nextSong);
 });
 
-// old vanilla JS ---------------------------------------------------------
 
-// window.onload = function(){
-// 	setCurrentAlbum(vanHalen);
-// 	var currentAlbum = 'van halen';
-// 	document.getElementsByClassName('album-cover-art')[0].addEventListener('click', function() {
-// 		currentAlbum = changeAlbum(currentAlbum);
-// 	});	
-// 	songListContainer.addEventListener('mouseover', function(event) {
-// 		// Only target individual song rows during event delegation
-// 		if(event.target.parentElement.className === 'album-view-song-item'){
-// 			var songItem = getSongItem(event.target);
-
-// 			if (songItem.getAttribute("data-song-number") !== currentlyPlayingSong) {
-// 				songItem.innerHTML = playButtonTemplate;
-// 			}
-// 		}
-// 	});
-
-// 	for(var i=0;i<songRows.length;i++){
-// 		songRows[i].addEventListener('mouseleave', function(event) {
-// 			// revert the content back to the number
-
-// 			//#1
-// 			var songItem = getSongItem(event.target);
-// 			var songItemNumber = songItem.getAttribute('data-song-number');
-// 			//#2
-// 			if (songItemNumber !== currentlyPlayingSong) {
-// 				songItem.innerHTML = songItemNumber;
-// 			}
-// 		});
-// 		songRows[i].addEventListener('click', function(event) {
-// 			//Event handler call
-// 			clickHandler(event.target);
-// 		});
-// 	}
-// }
 
 
 
