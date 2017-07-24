@@ -126,7 +126,7 @@ var nextSong = function(){
 
 	// currentlyPlayingSongNumber = parseInt(currentSongIndex + 1);
 	// currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
-	setSong(currentSongIndex)
+	
 
 	setSong(currentSongIndex + 1);
 	currentSoundFile.play();
@@ -151,8 +151,8 @@ var previousSong = function(){
 	var currentSongIndex = trackIndex(currentAlbum, currentSongFromAlbum);
 	currentSongIndex--;
 	// Sets the index back to zero if we reach the end of the album - will bring us to the first song again.
-	if(currentSongIndex >= currentAlbum.songs.length-1) {
-		currentSongIndex = 0;
+	if(currentSongIndex < 0) {
+		currentSongIndex = currentAlbum.songs.length - 1;
 	}
 	// Saves the song number as the previous song for reference.
 	var lastSongNumber = currentlyPlayingSongNumber;
