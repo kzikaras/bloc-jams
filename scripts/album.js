@@ -10,7 +10,7 @@ var createSongRow = function(songNumber, songName, songLength){
 
 	var clickHandler = function() {
 		var songNumber = parseInt($(this).attr('data-song-number'));
-		// $('.volume .seek-bar').css(setVolume(seekBarFillRatio));
+		
 
 		if (currentlyPlayingSongNumber !== null) { //if there is a song playing...
 			// Revert to song number for currently playing song because user started playing new song.
@@ -18,6 +18,11 @@ var createSongRow = function(songNumber, songName, songLength){
 			var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
 			currentlyPlayingCell.html(currentlyPlayingSongNumber);
 			currentSongFromAlbum = $(".song-item-title").html();
+
+			var $volumeFill = $('.volume .fill');
+			var $volumeThumb = $('.volume .thumb');
+			$volumeFill.width(currentVolume + '%');
+			$volumeThumb.css({left: currentVolume + '%'});
 
 		}
 		if (currentlyPlayingSongNumber !== songNumber) {
@@ -147,15 +152,17 @@ var setupSeekBars = function() {
 		// #4
 		var seekBarFillRatio = offsetX/barWidth;
 
+		if($(this).parent().attr('class') === 'seek-control'){
+			seek(seekBarFillRatio * currentSoundFile.getDuration());
+		}
+		else{
+			setVolume(seekBarFillRatio * 100);
+		}
+
 		// #5
 		updateSeekPercentage($(this), seekBarFillRatio);
 
-		if($seekBars.parent() === $('.control-group .volume')){
-			setVolume(seekBarFillRatio);
-		}
-		else if($seekBars.parent() === $('.seek-control')){
-			updateSeekBarWhileSongPlays()
-		}
+		
 	});
 	// #7
 	$seekBars.find('.thumb').mousedown(function(event){
@@ -168,7 +175,15 @@ var setupSeekBars = function() {
 			var barWidth = $seekBar.width();
 			var seekBarFillRatio = offsetX / barWidth;
 
+			if($seekBar.parent().attr('class') === 'seek-control'){
+			seek(seekBarFillRatio * currentSoundFile.getDuration());
+			}
+			else{
+				setVolume(seekBarFillRatio);
+			}
+
 			updateSeekPercentage($seekBar, seekBarFillRatio);
+
 		});
 
 		// #10
@@ -176,12 +191,7 @@ var setupSeekBars = function() {
 			$(document).unbind('mousemove.thumb');
 			$(document).unbind('mouseup.thumb');
 		});
-		if($seekBars.parent() === $('.control-group .volume')){
-			setVolume(seekBarFillRatio);
-		}
-		else if($seekBars.parent() === $('.seek-control')){
-			updateSeekBarWhileSongPlays($seekBars, seekBarFillRatio)
-		}
+
 	});
 };
 
