@@ -24,6 +24,9 @@ var createSongRow = function(songNumber, songName, songLength){
 			$volumeFill.width(currentVolume + '%');
 			$volumeThumb.css({left: currentVolume + '%'});
 
+
+
+
 		}
 		if (currentlyPlayingSongNumber !== songNumber) {
 			// Switch from Play -> Pause button to indicate new song is playing.
@@ -41,18 +44,18 @@ var createSongRow = function(songNumber, songName, songLength){
 			
 		} else if (currentlyPlayingSongNumber === songNumber) {
 			// Switch from Pause -> Play button to pause currently playing song.
-			$(this).html(playButtonTemplate);
-			$('.main-controls .play-pause').html(playerBarPlayButton);
-			setSong(null);
+			
 
 			if(currentSoundFile.isPaused()) {
 				currentSoundFile.play();
 				updateSeekBarWhileSongPlays();
 				$(this).html(pauseButtonTemplate);
+				$('.main-controls .play-pause').html(playerBarPauseButton);
 			}
 			else{
 				currentSoundFile.pause();
 				$(this).html(playButtonTemplate);
+				$('.main-controls .play-pause').html(playerBarPlayButton);
 			}
 
 			
@@ -351,6 +354,8 @@ var seek = function(time){
 var setVolume = function(volume) {
 	if (currentSoundFile) {
 		currentSoundFile.setVolume(volume);
+		$('.volume .fill').css('width', '80%');
+		$('.volume .thumb').css('left', '80%');
 	}
 };
 
@@ -399,7 +404,12 @@ var setTotalTimeInPlayerBar = function(totalTime){
 var filterTimeCode = function(timeInSeconds){
 	var wholeSeconds = Math.floor(parseFloat(timeInSeconds));
 	var wholeMinutes = Math.floor(timeInSeconds / 60);
-	return wholeMinutes + ':' + (wholeSeconds-(wholeMinutes*60));
+	if(timeInSeconds < 10){
+		return  wholeMinutes + ':0' + (wholeSeconds-(wholeMinutes*60));
+	}else{
+		return  wholeMinutes + ':' + (wholeSeconds-(wholeMinutes*60));
+	}
+	
 };
 
 
