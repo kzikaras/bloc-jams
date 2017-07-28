@@ -38,16 +38,16 @@ var vanHalen = {
 	year: '1978',
 	albumArtUrl: 'assets/images/album_covers/vanhalen.jpg',
 	songs: [
-		{title: 'Runnin with the Devil', duration: '3:36'},
-		{title: 'Eruption', duration: '1:42'},
-		{title: 'You Really Got Me', duration: '2:38'},
-		{title: 'Aint talkin bout Love', duration: '3:50'},
-		{title: 'Im the One', duration: '3:47'},
-		{title: 'Jamies Cryin', duration: '3:31'},
-		{title: 'Atomic Punk', duration: '3:02'},
-		{title: 'Feel Your Love Tonight', duration: '3:43'},
-		{title: 'Little Dreamer', duration: '3:23'},
-		{title: 'Ice Cream Man', duration: '3:20'},
-		{title: 'On Fire', duration: '3:01'}
+		{title: 'Runnin with the Devil', duration: '216', audioUrl: 'assets/music/vanhalen/Runnin With The Devil'},
+		{title: 'Eruption', duration: '102', audioUrl: 'assets/music/vanhalen/Eruption'},
+		{title: 'You Really Got Me', duration: '158', audioUrl: 'assets/music/vanhalen/You Really Got Me'},
+		{title: 'Aint talkin bout Love', duration: '230', audioUrl: 'assets/music/vanhalen/Ain Talkin Bout Love'},
+		{title: 'Im the One', duration: '227', audioUrl: 'assets/music/vanhalen/Im The One'},
+		{title: 'Jamies Cryin', duration: '211', audioUrl: 'assets/music/vanhalen/Jamies Cryin'},
+		{title: 'Atomic Punk', duration: '182', audioUrl: 'assets/music/vanhalen/Atomic Punk'},
+		{title: 'Feel Your Love Tonight', duration: '223', audioUrl: 'assets/music/vanhalen/Feel Your Love Tonight'},
+		{title: 'Little Dreamer', duration: '203', audioUrl: 'assets/music/vanhalen/Little Dreamer'},
+		{title: 'Ice Cream Man', duration: '200', audioUrl: 'assets/music/vanhalen/Ice Cream Man'},
+		{title: 'On Fire', duration: '181', audioUrl: 'assets/music/vanhalen/On Fire'}
 	]
 };

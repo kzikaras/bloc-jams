@@ -417,7 +417,7 @@ var filterTimeCode = function(timeInSeconds){
 
 
 $(document).ready(function(){
-	setCurrentAlbum(albumPicasso);
+	setCurrentAlbum(vanHalen);
 	$previousButton.click(previousSong);
 	$nextButton.click(nextSong);
 	var play = $('.main-controls .play-pause');
